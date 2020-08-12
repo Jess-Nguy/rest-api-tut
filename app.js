@@ -20,7 +20,7 @@ app.get('/posts', (req, res) => {
 
 // Connect to Databse
 mongoose.connect(
-    'mongodb+srv://jessnguy:gdqcYqtFC7sVZL@cluster0.dd3qe.mongodb.net/Test?retryWrites=true&w=majority',
+    'mongodb+srv://<name><pass>@cluster0.dd3qe.mongodb.net/Test?retryWrites=true&w=majority',
     { useUnifiedTopology: true } ,
     () => console.log('connected to the DB!')
 );
