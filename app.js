@@ -2,25 +2,30 @@
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+require('dotenv/config');
 
+app.use(bodyParser.json());
+
+// Import routes
+const postsRoute = require('./routes/posts');
+const userRoute = require('./routes/user');
+// This makes all the routes "start" with `/posts` in posts.js 
+app.use('/posts', postsRoute);
+app.use('/user', userRoute);
 // Middlewares. Function for when routes are being hit. Can do: app.use('auth'); to authenticate the user.
-app.use('/posts', () => {
-    console.log('This is a middleware running');
-});
-
-// ROUTES. get, post, delete, patch(update). '/' is the base url page.
-app.get('/', (req, res) => {
-    res.send('We are on home');
-});
+// app.use('/posts', () => {
+//     console.log('This is a middleware running');
+// });
 
 // http://localhost:3000/posts
 app.get('/posts', (req, res) => {
-    res.send('We are on posts');
+    res.send('We are on home');
 });
 
 // Connect to Databse
 mongoose.connect(
-    'mongodb+srv://<name><pass>@cluster0.dd3qe.mongodb.net/Test?retryWrites=true&w=majority',
+   process.env.DB_CONNECTION,
     { useUnifiedTopology: true } ,
     () => console.log('connected to the DB!')
 );
